@@ -8,6 +8,7 @@ const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
 const {v4: uuidv4} = require('uuid');
 const { Blog } = require('./models/blog');
+const { Project } = require ('./models/projects')
 const { path } = require('express/lib/application');
 const multer = require("multer");
 const fs = require("fs");
@@ -24,6 +25,7 @@ mongoose.connect(process.env.MONGO_SERVER,
 const port = process.env.PORT || 3001
 // defining the Express app
 const app = express();
+const defaultSort = {createdAt: -1}
 // adding Helmet to enhance your API's security
 app.use(helmet());
 
@@ -36,6 +38,8 @@ app.use(cors());
 // adding morgan to log HTTP requests
 app.use(morgan('combined'));
 
+
+//BLOGS
 //Posting a blog
 app.post('/', async (req, res) => {
     const newBlog = req.body
@@ -46,7 +50,19 @@ app.post('/', async (req, res) => {
 
 //fetching the blogs to map
 app.get('/bloggers', async (req, res) => {
-    res.send(await blog.find().lean())
+    res.send(await Blog.find().sort(defaultSort).lean())
+})
+//PROJECTS
+//Posting a project
+app.post('/projadd', async (req, res) => {
+    const newProject = req.body
+    const project = new Project(newProject)
+    await project.save()
+    res.send({message: 'Project saved'})
+})
+//fetching the projects to map
+app.get('/projects', async (req, res) => {
+    res.send(await Project.find().lean())
 })
 
 
