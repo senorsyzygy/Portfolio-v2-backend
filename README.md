@@ -16,10 +16,20 @@ BLOGS
 <br>
 PROJECTS
 <hr>
-[] post function for adding projects
+[x] post function for adding projects
 <br>
 [] update function for projects
 <br>
 [] remove function for projects
 <br>
 [x] fetch function for projects for frontend
+<br>
+GUEST BOOK
+<hr>
+[x] post function for adding guest book comments via frontend
+<br>
+[] update function for projects
+<br>
+[] remove function for projects
+<br>
+[x] fetch function for guest book comments for frontend

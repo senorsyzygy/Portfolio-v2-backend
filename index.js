@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const {v4: uuidv4} = require('uuid');
 const { Blog } = require('./models/blog');
 const { Project } = require ('./models/projects')
+const { Guestbook } = require('./models/guestbook')
 const { path } = require('express/lib/application');
 const multer = require("multer");
 const fs = require("fs");
@@ -64,7 +65,19 @@ app.post('/projadd', async (req, res) => {
 app.get('/projects', async (req, res) => {
     res.send(await Project.find().sort(defaultSort).lean())
 })
-
+//GUEST BOOK
+//Posting a Guest Book comment
+app.post('/guestbookadd', async (req, res) => {
+    const newGuestbook = req.body
+    const guestbook = new Guestbook(newGuestbook)
+    await guestbook.save()
+    res.send({message: 'Guestbook comment saved'})
+    console.log(guestbook)
+})
+//fetching guestbook comments
+app.get('/guestbooks', async (req, res) => {
+    res.send(await Guestbook.find().sort(defaultSort).lean())
+})
 
 app.listen(port, () => {
     console.log(`listening on port ${port}`);
