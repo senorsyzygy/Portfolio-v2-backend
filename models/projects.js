@@ -9,7 +9,11 @@ projectName: {
 subname: {
     type: String,
 },
-bulktext: {
+projectdesc: {
+    type: String,
+    required: true
+},
+learning:{
     type: String,
     required: true
 },

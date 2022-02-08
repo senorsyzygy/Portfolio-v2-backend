@@ -62,7 +62,7 @@ app.post('/projadd', async (req, res) => {
 })
 //fetching the projects to map
 app.get('/projects', async (req, res) => {
-    res.send(await Project.find().lean())
+    res.send(await Project.find().sort(defaultSort).lean())
 })
 
 
