@@ -13,7 +13,7 @@ const { Guestbook } = require('./models/guestbook')
 const { path } = require('express/lib/application');
 const multer = require("multer");
 const fs = require("fs");
-const { S3Client, PutObjectCommand, CreateBucketCommand } = require("@aws-sdk/client-s3")
+const { S3Client, PutObjectCommand, CreateBucketCommand, GetObjectLegalHoldRequest } = require("@aws-sdk/client-s3")
 const fileUpload = require('express-fileupload');
 const { env } = require('process');
 //For connecting the server
@@ -53,6 +53,13 @@ app.post('/', async (req, res) => {
 app.get('/bloggers', async (req, res) => {
     res.send(await Blog.find().sort(defaultSort).lean())
 })
+
+//updating a blog
+app.put('/:id', async (req, res) => {
+    await Blog.findOneAndUpdate({_id: ObjectId(req.params.id)}, req.body)
+    res.send({message: 'Blog updated m`lord'})
+})
+
 //PROJECTS
 //Posting a project
 app.post('/projadd', async (req, res) => {
@@ -65,6 +72,11 @@ app.post('/projadd', async (req, res) => {
 app.get('/projects', async (req, res) => {
     res.send(await Project.find().sort(defaultSort).lean())
 })
+//updating a project
+app.put('/proj/:id', async (req, res) => {
+    await Project.findOneAndUpdate({_id: ObjectId(req.params.id)}, req.body)
+    res.send({message: 'Project updated m`lord'})
+})
 //GUEST BOOK
 //Posting a Guest Book comment
 app.post('/guestbookadd', async (req, res) => {
@@ -74,6 +86,7 @@ app.post('/guestbookadd', async (req, res) => {
     res.send({message: 'Guestbook comment saved'})
     console.log(guestbook)
 })
+
 //fetching guestbook comments
 app.get('/guestbooks', async (req, res) => {
     res.send(await Guestbook.find().sort(defaultSort).lean())

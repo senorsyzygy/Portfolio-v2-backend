@@ -8,7 +8,7 @@ BLOGS
 <hr>
 [x] post function for adding blogs
 <br>
-[] update function for blogs
+[x] update function for blogs
 <br>
 [] remove function for blogs
 <br>
@@ -18,7 +18,7 @@ PROJECTS
 <hr>
 [x] post function for adding projects
 <br>
-[] update function for projects
+[x] update function for projects
 <br>
 [] remove function for projects
 <br>
